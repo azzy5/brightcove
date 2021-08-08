@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="text/javascript" src={{ url_for('static',filename="js/jQuery.js")}}></script>
+  <script type="text/javascript" src={{ url_for('static',filename="js/bootstrap.min.js")}}></script>
+  <link rel="stylesheet" href={{ url_for('static',filename="styles/bootstrap.css")}} >
+  <link rel="stylesheet" href={{ url_for('static',filename="styles/style.css")}}>
+  <link rel="icon" href={{ url_for('static',filename="assets/favicon.ico")}}>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+ 
+<!--
+  <link type="text/css" rel="stylesheet" href={{ url_for('static',filename="styles/materialize.min.css")}}  media="screen,projection"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script type="text/javascript" src=src={{ url_for('static',filename="js/materialize.min.js")}}></script>
+-->
+  <title>Technical Assessment</title>
+</head>
+<body style="height: 100%; width: 100%; bgcolor:#17181c; display: block; ">
+  {% include '_navbar.html' %} {% block body %}{% endblock %}
+
+</body>
+</html>
