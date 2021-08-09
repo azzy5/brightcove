@@ -1,46 +1,25 @@
-
 {% extends 'layout.html' %}
 {% block body %}
-<center><h1> Problem #1 </h1></center>
+<center>
+  <h1> Problem #1 </h1>
+</center>
 
 
-  <div class='container'style="width: 80%;height: 100%;border: 1px solid black;" >
-    <div class = "container" style="width: 80%;border: 1px solid; padding: 5px;">
-        A) Using the Player you created in your account, create a webpage that mutes the
-        player volume once the page is loaded;</br></br>
-        B) After ten seconds, skip play progress forward automatically 20 seconds. There are
-        two ways that I can think of to do this part; one is a lot better than the other!</div>
-    <div class = "container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
-        <div style="max-width: 960px;">
-            <video-js
-              data-account="6262703674001"
-              data-player="MCHbWfEwg"
-              data-video-id="6266964209001"
-              data-embed="default"
-              controls=""
-              data-application-id=""
-              class="vjs-fluid"
-              style="padding-top: 56.25%;">
-            </video-js>
-          </div>
-          <script
-            src="//players.brightcove.net/6262703674001/MCHbWfEwg_default/index.min.js">
-          </script>
-          <script>
-            videojs.getPlayer('myPlayerID').ready(function() {
-              var myPlayer = this;
-              // Play here? Two tasks to do
-              myPlayer.muted(true);
-              myPlayer.on('loadedmetadata', function(){
-                myPlayer.play();
-              });
-            });
-          </script>
-    </div>
-    <div class = "container" style="width: 80%;border: 1px solid; padding: 5px;">Notes
-    </div>
-    <div class = "container" style="width: 80%;border: 1px solid; padding: 5px;">References
-    </div>
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+  <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+    A) Using the Player you created in your account, create a webpage that mutes the
+    player volume once the page is loaded;</br></br>
+    B) After ten seconds, skip play progress forward automatically 20 seconds. There are
+    two ways that I can think of to do this part; one is a lot better than the other!</div>
+  <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
+    <script async src="//jsfiddle.net/azzy5/0ed6trgk/38/embed/result,js,html/dark/"></script>
   </div>
+  <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Notes
+    <p> Wanted to use the 'durationchange' event to track the current duration but for some reason the event wasn't
+      being triggrered</p>
+  </div>
+  <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
+  </div>
+</div>
 
 {% endblock %}

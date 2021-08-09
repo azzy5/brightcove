@@ -1,0 +1,60 @@
+{% extends 'layout.html' %}
+{% block body %}
+<center>
+    <h1> Problem #2 </h1>
+</center>
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Question:
+        <p> 2) Using https://apis.support.brightcove.com/general/concepts-api-tester.html as a reference; create an API
+            call that retrieves all the videos in trial account
+            5121028909001, and provide the names and IDs of the videos.
+            Client ID 7ff4a3d0-d4a3-468e-ac7c-3e744cb83436
+            Secret ID 8QHzdZ5d4aUaN2jLW-9GU_7WqmPCgjHrYNhFcZ_tb_sTA-oisr-RGvPgv538P2cXr1w7phWA_URhSRlRkg52Yw</p>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Solution
+        <p>Generating a OAuth Token for the given Client ID, Client Secrete and Account ID:</p>
+        <div id="auth_token" style="color: #FF0;"></div>
+        <p> Video name & ID</p>
+        <div id="response">
+            Test
+        </div>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
+        <p>1. https://apis.support.brightcove.com/cms/references/reference.html#operation/GetVideos</p>
+        <p>https://apis.support.brightcove.com/getting-started/authentication-brightcove-api-requests.html</p>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        triggerAPI();
+    }
+
+    function triggerAPI() {
+        var clinet_id = "7ff4a3d0-d4a3-468e-ac7c-3e744cb83436";
+        var client_secrete = "8QHzdZ5d4aUaN2jLW-9GU_7WqmPCgjHrYNhFcZ_tb_sTA-oisr-RGvPgv538P2cXr1w7phWA_URhSRlRkg52Yw";
+        var account_id = "5121028909001";
+        act = get_access_token(clinet_id, client_secrete);
+        console.log("page loaded");
+    }
+
+    function get_access_token(clinet_id, client_secrete) {
+        var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append("Authorization", "Basic N2ZmNGEzZDAtZDRhMy00NjhlLWFjN2MtM2U3NDRjYjgzNDM2OjhRSHpkWjVkNGFVYU4yakxXLTlHVV83V3FtUENnakhyWU5oRmNaX3RiX3NUQS1vaXNyLVJHdlBndjUzOFAyY1hyMXc3cGhXQV9VUmhTUmxSa2c1Mll3");
+myHeaders.append("Access-Control-Allow-Origin", "localhost:5000");
+myHeaders.append("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+ // redirect: 'follow'
+};
+
+fetch("https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+
+    }
+</script>
+{% endblock %}
