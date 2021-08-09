@@ -39,15 +39,15 @@ function startIngest(){
     var url=document.getElementById("url").value;
     console.log("clicked " + fileName+ ", " +url);
 
-    const data = { "fname": fileName, "url": url};
+    var data = { "f_name": fileName, "url": url};
     console.log(JSON.stringify(data))
 
-    fetch('/ingest', {
+    fetch('/ingest?'+fileName+";"+url, {
     method: 'POST', // or 'PUT'
     headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(data)
     })
     .then(response => response.json())
     .then(data => {

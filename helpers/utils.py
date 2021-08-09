@@ -1,4 +1,6 @@
 # global variables
+import json
+from flask.json import jsonify
 import requests
 error_class = 'alert alert-danger'
 success_class = 'alert alert-success'
@@ -7,11 +9,43 @@ success_class = 'alert alert-success'
 #     response =  os.system("ping -c 1 -W 3 " + "10.50.40.166")
 #     return False if (response>0) else True
 
+def createAsset(token, f_name):
+    url = "https://cms.api.brightcove.com/v1/accounts/6262703674001/videos"
+
+    payload =json.dumps({
+        'name': f_name
+    })
+    headers = {
+    'Authorization': 'Bearer '+ token,
+    'Content-Type': 'text/plain'
+    }
+
+    response = requests.request("POST", url, headers=headers, data=payload)
+
+    print(response.text)
+    return response
+
+def ingest_asset(token, id_, url_):
+    print(url_ + ", " + id_)
+    url = "https://ingest.api.brightcove.com/v1/accounts/6262703674001/videos/"+id_+"/ingest-requests"
+    payload = json.dumps({
+    "master": {
+        "url": url_
+    },
+    "profile": "multi-platform-extended-dynamic-with-mp4"
+    })
+    headers = {
+    'Authorization': 'Bearer '+ token,
+    'Content-Type': 'application/json'
+    }
+    response = requests.request("POST", url, headers=headers, data=payload)
+    print(response.text)
+    return response
 
 
 def getAccessToken(account):
     url = "https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials"
-
+# 1 = Trial account
     payload = {}
     if(account == 1):
         headers = {
