@@ -1,0 +1,80 @@
+{% extends 'layout.html' %}
+{% block body %}
+<center>
+    <h1> Problem #8 </h1>
+</center>
+
+
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+        We put up this page:
+        https://cs1.brightcodes.net/simon/misc/homework/playbutton.html
+        I want the player to load, and be able to click the little button labelled “Play” to begin
+        playback. It doesn’t work, and the player itself looks broken. Can you make it work?
+        Hints:
+        • It will need a page modification;
+        • It’s a deceptively simple answer.
+        Find the solution, and explain what was broken and how you fixed it as if you’re
+        speaking with a non-technical person who is trying to set-up the API for the very first
+        time.
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
+        <p>- By moving the 'script' tag from the HEAD to the end of the 'BODY' tag the issue was fixed'</p>
+        <p>- The best practice is to put JavaScript 'script' tags just before the closing 'body' tag rather than in the 'head' section of your HTML.</p>
+        <p>- The reason for this is that HTML loads from top to bottom. The head loads first, then the body, and then everything inside the body. </p>
+        <p>- If we put our JavaScript in the head section, the entire JavaScript will load before loading any of the HTML, which could cause a few problems :</p>
+        <p>- If you have code in your JavaScript that alters HTML as soon as the JavaScript code loads, there won’t actually be any HTML elements available for it to affect yet, so it will seem as though the JavaScript code isn’t working, and you may get errors.</p>
+        <p>- If you have a lot of JavaScript, it can visibly slow the loading of your page because it loads all of the JavaScript before it loads any of the HTML. </p>
+        <div style="position: relative; display: block; max-width: 640px;">
+            <div style="padding-top: 56.25%;">
+                <video
+                    id="brightcovePlayer"
+                    data-account="1646517646001"
+                    data-player="f9c76b35-ced3-4720-a9b6-fe72eb03711a"
+                    data-embed="default"
+                    data-video-id="3614790354001"
+                    data-application-id
+                    class="video-js" controls style="position: absolute; top: 0px; right: 0px; bottom: 0px; left: 0px; width: 100%; height: 100%;"></video>
+            </div>
+        </div>
+        <button id="playButton">Play</button></body>
+            <script src="//players.brightcove.net/1646517646001/f9c76b35-ced3-4720-a9b6-fe72eb03711a_default/index.min.js"></script>
+        <script>
+            var brightcovePlayer;
+            videojs("brightcovePlayer").ready(function(){
+                brightcovePlayer = this;
+                document.getElementById("playButton").addEventListener("click", function(){
+                    brightcovePlayer.play();
+                });
+            });
+        </script>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
+
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
+        <p>- https://levelup.gitconnected.com/all-about-script-87fea475b976</p>
+
+    </div>
+</div>
+<script>
+    var myPlayer;
+
+videojs.getPlayer('myPlayerID').ready(function() {
+  myPlayer = this;
+  myPlayer.play();
+  var options = {"showMessageAfter": 1000,"pausePlayerAfter": 1000};
+  myPlayer.AFKMonitor(options);
+});
+
+// +++ Get, load and play video +++
+function changeVideo() {
+  // Get the video object via the catalot
+  myPlayer.catalog.getVideo("3851389913001", function(error, video) {
+    // Load the video object into the player
+    myPlayer.catalog.load(video);
+    myPlayer.play();
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'layout.html' %}
+{% block body %}
+<center>
+    <h1> Problem #6 </h1>
+</center>
+
+
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+        <p>There are a lot of examples on the following page that show how to implement some
+        interesting solutions with our player:
+        https://support.brightcove.com/ (Under “Brightcove > Player Code Samples”)
+        Please take two of those code samples (whichever ones take your fancy) and
+        combine the two!</p>
+        <p>This is intended to demonstrate that you understand the basic concepts and order-of
+        events in the Player API.</p>
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
+        <link href="//learning-services-media.brightcove.com/bc-player/plugins/still-watching/videojs.afk-monitor.css" rel="stylesheet">
+        <video-js id="myPlayerID"
+              data-video-id="3851380732001"
+              data-account="1752604059001"
+              data-player="HkZ9oXaHtZ"
+              data-embed="default"
+              data-application-id
+              class="video-js"
+              controls
+              height=380px
+              width=580px></video-js>
+          <script src="https://players.brightcove.net/1752604059001/HkZ9oXaHtZ_default/index.min.js"></script>
+          <br />
+          <button onclick="changeVideo()">Change Video</button>
+          <script src="//learning-services-media.brightcove.com/bc-player/plugins/still-watching/videojs.afk-monitor.js"></script>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
+        <p>- I've tried combining the 'AFKMonitor' and Dynamic content change examples into one</p>
+        <p>https://player.support.brightcove.com/code-samples/brightcove-player-sample-are-you-still-watching.html</p>
+        <p>https://player.support.brightcove.com/code-samples/brightcove-player-sample-loading-player-dynamically.html</p>
+        
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
+        <p>https://studio.support.brightcove.com/players/configuring-player-advertising-using-players-module.html
+        </p>
+        <p>https://player.support.brightcove.com/plugins/advertising-ima3-plugin.html#Ad_macros_and_the_serverUrl
+        </p>
+    </div>
+</div>
+<script>
+    var myPlayer;
+
+videojs.getPlayer('myPlayerID').ready(function() {
+  myPlayer = this;
+  myPlayer.play();
+  var options = {"showMessageAfter": 1000,"pausePlayerAfter": 1000};
+  myPlayer.AFKMonitor(options);
+});
+
+// +++ Get, load and play video +++
+function changeVideo() {
+  // Get the video object via the catalot
+  myPlayer.catalog.getVideo("3851389913001", function(error, video) {
+    // Load the video object into the player
+    myPlayer.catalog.load(video);
+    myPlayer.play();
+  });
+}
+</script>
+{% endblock %}

@@ -11,7 +11,6 @@ success_class = 'alert alert-success'
 
 def createAsset(token, f_name):
     url = "https://cms.api.brightcove.com/v1/accounts/6262703674001/videos"
-
     payload =json.dumps({
         'name': f_name
     })
@@ -19,10 +18,7 @@ def createAsset(token, f_name):
     'Authorization': 'Bearer '+ token,
     'Content-Type': 'text/plain'
     }
-
     response = requests.request("POST", url, headers=headers, data=payload)
-
-    print(response.text)
     return response
 
 def ingest_asset(token, id_, url_):
@@ -39,7 +35,6 @@ def ingest_asset(token, id_, url_):
     'Content-Type': 'application/json'
     }
     response = requests.request("POST", url, headers=headers, data=payload)
-    print(response.text)
     return response
 
 

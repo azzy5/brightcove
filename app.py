@@ -27,6 +27,20 @@ app = Flask(__name__)
 app.secret_key = 'Let it be a secrete'
 
 
+@app.route("/8", methods=['GET', 'POST'])
+def eight_solution():
+    asset_metadata = []
+   # response = utils.getAccessToken(2)
+
+    return render_template('8.html')
+
+@app.route("/6", methods=['GET', 'POST'])
+def six_solution():
+    asset_metadata = []
+   # response = utils.getAccessToken(2)
+
+    return render_template('6.html')
+
 @app.route("/5", methods=['GET', 'POST'])
 def five_solution():
     asset_metadata = []
@@ -39,12 +53,9 @@ def five_solution():
 def ingest():
     if request.method == 'POST':
         reqeust_data = request.get_json()
-        # asset_url = request.form['url']
         asset_metadata = []
         response = utils.getAccessToken(2)
-        #print(response + "," +reqeust_data['fname'])
         asset_metadata = utils.createAsset(response,reqeust_data['fname']).json()
-        #print(asset_metadata['id'])
         ingest_id= utils.ingest_asset(response,asset_metadata['id'],reqeust_data['url'])
         return ingest_id.json()
     else:
