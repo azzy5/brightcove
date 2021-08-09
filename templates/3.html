@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+{% block body %}
+<center>
+    <h1> Problem #3 </h1>
+</center>
+
+
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+        3) Advertising is an important focus for us as Brightcove Support engineers. Create a
+        player with advertising both via Studio configurations as well as through ‘Advanced
+        Embed’ (Published Player) using the following ad tag/server URL.
+        If successful, an ad will play each and every time the player is loaded.
+
+        https://cs1.brightcodes.net/bclay/downloads/adResponse.xml
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
+        <div style="max-width: 960px;">
+            <video-js id="myPlayerID" style="width: 100%;height: 100%" data-account="6262703674001"
+                data-player="hpKowhz2D" data-embed="default" controls="" data-video-id="6267102293001"
+                data-application-id="" class="vjs-fluid" style="padding-top: 56.25%;">
+            </video-js>
+        </div>
+        <script src="//players.brightcove.net/6262703674001/hpKowhz2D_default/index.min.js">
+        </script>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
+        <p>- For testing the provided ad tag, I've created a new player with the Client-Side (IMA) </p>
+        <p>- However, this the add can also be rendered by interacting with the IMA SDK </p>
+        <p>https://player.support.brightcove.com/plugins/advertising-ima3-plugin.html#Ad_macros_and_the_serverUrl
+        </p>
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
+        <p>https://studio.support.brightcove.com/players/configuring-player-advertising-using-players-module.html
+        </p>
+        <p>https://player.support.brightcove.com/plugins/advertising-ima3-plugin.html#Ad_macros_and_the_serverUrl
+        </p>
+    </div>
+</div>
+{% endblock %}

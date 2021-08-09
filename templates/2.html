@@ -5,30 +5,45 @@
 </center>
 <div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
     <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Question:
-        <p> 2) Using https://apis.support.brightcove.com/general/concepts-api-tester.html as a reference; create an API
+        <p> Using https://apis.support.brightcove.com/general/concepts-api-tester.html as a reference; create an API
             call that retrieves all the videos in trial account
-            5121028909001, and provide the names and IDs of the videos.
-            Client ID 7ff4a3d0-d4a3-468e-ac7c-3e744cb83436
-            Secret ID 8QHzdZ5d4aUaN2jLW-9GU_7WqmPCgjHrYNhFcZ_tb_sTA-oisr-RGvPgv538P2cXr1w7phWA_URhSRlRkg52Yw</p>
+            5121028909001, and provide the names and IDs of the videos.</p>
+        <p> Client ID 7ff4a3d0-d4a3-468e-ac7c-3e744cb83436</p>
+        <p>Secret ID 8QHzdZ5d4aUaN2jLW-9GU_7WqmPCgjHrYNhFcZ_tb_sTA-oisr-RGvPgv538P2cXr1w7phWA_URhSRlRkg52Yw</p>
     </div>
     <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Solution
-        <p>Generating a OAuth Token for the given Client ID, Client Secrete and Account ID:</p>
-        <div id="auth_token" style="color: #FF0;"></div>
-        <p> Video name & ID</p>
-        <div id="response">
-            Test
+        <p> Generating Access token : {{ act }} </p>
+        <p> Asset metadata fetched..</p>
+        <div class="col-sm-6">
+            <table class="table table-sm mt-3 ">
+                <thead>
+                    <th colspan="3">Asset ID & Name</th>
+                    </tr>
+                    {% for asset in data %}
+                    <tr>
+                        <th class="m-0 p-0">
+                            <p class="font-weight-light  text-monospace text-break"> {{ asset[0] , asset[1] }}</p>
+                        </th>
+                    </tr>
+                    {% endfor %}
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
     <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
         <p>1. https://apis.support.brightcove.com/cms/references/reference.html#operation/GetVideos</p>
         <p>https://apis.support.brightcove.com/getting-started/authentication-brightcove-api-requests.html</p>
+        <p>https://apis.support.brightcove.com/oauth/code-samples/oauth-api-sample-get-access-token.html</p>
     </div>
 </div>
+
 <script>
     window.onload = function () {
-        triggerAPI();
+        //   triggerAPI();
     }
-
+/*
     function triggerAPI() {
         var clinet_id = "7ff4a3d0-d4a3-468e-ac7c-3e744cb83436";
         var client_secrete = "8QHzdZ5d4aUaN2jLW-9GU_7WqmPCgjHrYNhFcZ_tb_sTA-oisr-RGvPgv538P2cXr1w7phWA_URhSRlRkg52Yw";
@@ -38,23 +53,25 @@
     }
 
     function get_access_token(clinet_id, client_secrete) {
+        const data = { grant_type: 'client_credentials' };
         var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-myHeaders.append("Authorization", "Basic N2ZmNGEzZDAtZDRhMy00NjhlLWFjN2MtM2U3NDRjYjgzNDM2OjhRSHpkWjVkNGFVYU4yakxXLTlHVV83V3FtUENnakhyWU5oRmNaX3RiX3NUQS1vaXNyLVJHdlBndjUzOFAyY1hyMXc3cGhXQV9VUmhTUmxSa2c1Mll3");
-myHeaders.append("Access-Control-Allow-Origin", "http://admin.brightcove.com");
-myHeaders.append("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-
+//myHeaders.append("Authorization", "Basic N2ZmNGEzZDAtZDRhMy00NjhlLWFjN2MtM2U3NDRjYjgzNDM2OjhRSHpkWjVkNGFVYU4yakxXLTlHVV83V3FtUENnakhyWU5oRmNaX3RiX3NUQS1vaXNyLVJHdlBndjUzOFAyY1hyMXc3cGhXQV9VUmhTUmxSa2c1Mll3");
+// myHeaders.append("Access-Control-Allow-Origin", "localhost:5000");
 var requestOptions = {
   method: 'POST',
   headers: myHeaders,
- // redirect: 'follow'
+  redirect: 'follow',
+  credentials: 'include',
+  body: "grant_type=client_credentials"
 };
 
-fetch("https://oauth.brightcove.com/v4/access_token?grant_type=client_credentials", requestOptions)
+fetch("https://oauth.brightcove.com/v4/access_token", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
 
     }
 </script>
+*/
 {% endblock %}

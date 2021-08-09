@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+{% block body %}
+<center>
+    <h1> Problem #5 </h1>
+</center>
+
+<div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+        Upload a video using the Dynamic Ingest API.
+
+        https://apis.support.brightcove.com/dynamic-ingest/
+
+        Hint: You’ll need to use BOTH the CMS API and the Dynamic Ingest API together to accomplish this. Please show your working.
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
+            <label for="fname">Asset name:</label>
+            <input type="text" id="fname" name="fname"><br>
+            <label for="lname">Asset URL : </label>
+            <input type="text" id="url" name="desc"><br>
+            <label > Sample video URLs : <a href="https://solutions.brightcove.com/bcls/assets/videos/" target="top">https://solutions.brightcove.com/bcls/assets/videos/</a></label>
+            <br>
+            <button onclick="startIngest()">Click me</button>
+    </div>
+    <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
+        <p>- Based on the documentation on dynamic ingestion it looks like first we have to create a video object using the CMS API </p>
+        <p>- Then use the asset ID generated in the previous request to ingest aset file using Dynamic Ingest API</p>
+        <p></p>
+    </div>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
+        <p>- https://apis.support.brightcove.com/dynamic-ingest/getting-started/overview-dynamic-ingest-api-dynamic-delivery.html</p>
+        <p>- https://apis.support.brightcove.com/cms/getting-started/overview-cms-api.html#settingvalues</p>
+        <p>- https://apis.support.brightcove.com/cms/getting-started/practice-area-cms-api.html</p>
+
+    </div>
+</div>
+<script>
+function startIngest(){
+    var fileName=document.getElementById("fname").value;
+    var url=document.getElementById("url").value;
+    console.log("clicked " + fileName+ ", " +url);
+
+    const data = { "fname": fileName, "url": url};
+    console.log(JSON.stringify(data))
+
+    fetch('/ingest', {
+    method: 'POST', // or 'PUT'
+    headers: {
+        'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+    console.log('Success:', data);
+    })
+    .catch((error) => {
+    console.error('Error:', error);
+    });
+}
+</script>
+{% endblock %}
