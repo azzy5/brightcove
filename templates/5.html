@@ -20,6 +20,7 @@
             <label > Sample video URLs : <a href="https://solutions.brightcove.com/bcls/assets/videos/" target="top">https://solutions.brightcove.com/bcls/assets/videos/</a></label>
             <br>
             <button onclick="startIngest()">Click me</button>
+            <div id="result"></div>
     </div>
     <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
         <p>- Based on the documentation on dynamic ingestion it looks like first we have to create a video object using the CMS API </p>
@@ -39,7 +40,7 @@ function startIngest(){
     var url=document.getElementById("url").value;
     console.log("clicked " + fileName+ ", " +url);
 
-    var data = { "f_name": fileName, "url": url};
+    var data = { "fname": fileName, "url": url};
     console.log(JSON.stringify(data))
 
     fetch('/ingest?'+fileName+";"+url, {
@@ -51,6 +52,7 @@ function startIngest(){
     })
     .then(response => response.json())
     .then(data => {
+    document.getElementById("result").innerHTML="Success, id : "+   data['id'];
     console.log('Success:', data);
     })
     .catch((error) => {

@@ -8,59 +8,77 @@
 <div class='container' style="width: 80%;height: 100%;border: 1px solid black;">
     <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
         <p>This one is a popular request from customers, and there are many correct ways to do it -
-        take a player and put it into a lightbox.</p>
-       <p> There are examples on the Support site that you could use, or you could use any JS
-        framework; however you’d like to do it.</p>
+            take a player and put it into a lightbox.</p>
+        <p> There are examples on the Support site that you could use, or you could use any JS
+            framework; however you’d like to do it.</p>
         <p>Please explain what you did as if you’re talking to a technical person who knows
-        JavaScript but may be unfamiliar with the Player.</p>
+            JavaScript but may be unfamiliar with the Player.</p>
     </div>
-    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">Solution:
-        <link href="//learning-services-media.brightcove.com/bc-player/plugins/still-watching/videojs.afk-monitor.css" rel="stylesheet">
-        <video-js id="myPlayerID"
-              data-video-id="3851380732001"
-              data-account="1752604059001"
-              data-player="HkZ9oXaHtZ"
-              data-embed="default"
-              data-application-id
-              class="video-js"
-              controls
-              height=380px
-              width=580px></video-js>
-          <script src="https://players.brightcove.net/1752604059001/HkZ9oXaHtZ_default/index.min.js"></script>
-          <br />
-          <button onclick="changeVideo()">Change Video</button>
-          <script src="//learning-services-media.brightcove.com/bc-player/plugins/still-watching/videojs.afk-monitor.js"></script>
-    </div>
+
     <div class="container" style="width: 80%;height: 20%;border: 1px solid; padding: 5px;">Notes
-        <p>- I've tried combining the 'AFKMonitor' and Dynamic content change examples into one</p>
-        <p>https://player.support.brightcove.com/code-samples/brightcove-player-sample-are-you-still-watching.html</p>
-        <p>https://player.support.brightcove.com/code-samples/brightcove-player-sample-loading-player-dynamically.html</p>
+        <p>- Copied this code from the sample, but I don't have skills to implement the light box on my own</p>
+        <p>- Would be happy to learn more if the learning opportunity persists</p>
     </div>
-    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">References
-        <p>https://studio.support.brightcove.com/players/configuring-player-advertising-using-players-module.html
-        </p>
-        <p>https://player.support.brightcove.com/plugins/advertising-ima3-plugin.html#Ad_macros_and_the_serverUrl
-        </p>
+    <div class="container" style="width: 80%;border: 1px solid; padding: 5px;">
+        <div class="player-block">
+            <!-- main container -->
+            <div id="container">
+                <!-- This container is for the clickable video poster image -->
+            </div>
+            <div id="playerLightbox" class="playerHide">
+                <!-- lightbox container with player embed code -->
+                <video-js id="myPlayerID" data-video-id="5625751316001" data-account="1752604059001"
+                    data-player="default" data-embed="default" data-application-id class="video-js" controls width="560"
+                    height="315"></video-js>
+                <!-- close player button -->
+                <div id="playerClose" class="playerClose" onClick="hideAndStop();">Close</div>
+            </div>
+            <script src="https://players.brightcove.net/1752604059001/default_default/index.min.js"></script>
+        </div>
     </div>
 </div>
 <script>
-    var myPlayer;
 
-videojs.getPlayer('myPlayerID').ready(function() {
-  myPlayer = this;
-  myPlayer.play();
-  var options = {"showMessageAfter": 1000,"pausePlayerAfter": 1000};
-  myPlayer.AFKMonitor(options);
-});
+    // Get a reference to the video poster image and the lightbox
+    var myPlayer,
+        eContainer = document.getElementById("container"),
+        eLightbox = document.getElementById("playerLightbox");
 
-// +++ Get, load and play video +++
-function changeVideo() {
-  // Get the video object via the catalot
-  myPlayer.catalog.getVideo("3851389913001", function(error, video) {
-    // Load the video object into the player
-    myPlayer.catalog.load(video);
-    myPlayer.play();
-  });
-}
+    videojs.getPlayer('myPlayerID').ready(function () {
+        // Get a reference to the player
+        myPlayer = this;
+
+        // +++ Wait for loadstart +++
+        // Listen for the loadstart event
+        myPlayer.on('loadstart', function () {
+            var str = "";
+            // Get the video's poster image and use it in the img tag
+            str += '<img src="' +
+                myPlayer.mediainfo.posterSources[0].src + '" alt="' +
+                myPlayer.mediainfo.name + '" width="100%" height="100%"/>';
+            eContainer.innerHTML = str;
+
+            // +++ Listen for poster click +++
+            // Add click event listener to the video poster image
+            eContainer.onclick = function (e) {
+                // reveal the lightbox
+                eLightbox.className = "playerShow";
+                // play the video
+                myPlayer.play();
+            }
+
+            // +++ Close the lightbox +++
+            // Listen for a click event on the close button
+            playerClose.onclick = function (e) {
+                myPlayer.pause();
+                // hide the lightbox
+                eLightbox.className = "playerHide";
+            }
+        })
+    });
+
+
+
+    Rerun
 </script>
 {% endblock %}

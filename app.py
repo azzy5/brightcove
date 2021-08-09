@@ -26,6 +26,12 @@ data = []
 app = Flask(__name__)
 app.secret_key = 'Let it be a secrete'
 
+@app.route("/4", methods=['GET', 'POST'])
+def four_solution():
+    asset_metadata = []
+   # response = utils.getAccessToken(2)
+
+    return render_template('4.html')
 
 @app.route("/8", methods=['GET', 'POST'])
 def eight_solution():
@@ -48,6 +54,12 @@ def five_solution():
 
     return render_template('5.html')
 
+@app.route("/7", methods=['GET', 'POST'])
+def seven_solution():
+    asset_metadata = []
+   # response = utils.getAccessToken(2)
+
+    return render_template('7.html')
 
 @app.route("/ingest", methods=['GET', 'POST'])
 def ingest():
@@ -87,7 +99,7 @@ def three_solution():
 @app.route("/", methods=['GET', 'POST'])
 def index():
 
-    return render_template('3.html')
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
